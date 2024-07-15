@@ -1,28 +1,24 @@
 //import modules
+require('dotenv').config(); //require dotenv
 const express = require('express'); // require express
 const path = require('path'); // require path
-require('dotenv').config(); //require dotenv
+const configViewEngine = require('./config/viewEngine');
+const configStaticFile = require('./config/staticFile');
+const webRouters = require('./routes/web');
 
 //set up variables
 const app = express();
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOSTNAME;
 
-//config template engine:
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//config view engine:
+configViewEngine(app);
 
 //config static file:
-app.use(express.static(path.join(__dirname, 'public')));
+configStaticFile(app);
 
 //add routes:
-app.get('/', function(req, res){
-  res.render('xinchao.ejs');
-});
-
-app.get('/bye', function(req,res){
-  res.send('see you again');
-});
+app.use(webRouters);
 
 //listen to port
 app.listen(port, hostname, function(){
