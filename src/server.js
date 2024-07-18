@@ -4,7 +4,9 @@ const express = require('express'); // require express
 const path = require('path'); // require path
 const configViewEngine = require('./config/viewEngine');
 const configStaticFile = require('./config/staticFile');
+const configReqBody = require('./config/reqBody');
 const webRouters = require('./routes/web');
+const connection = require('./config/database');
 
 //set up variables
 const app = express();
@@ -17,8 +19,17 @@ configViewEngine(app);
 //config static file:
 configStaticFile(app);
 
+//config req.body:
+configReqBody(app);
+
 //add routes:
-app.use(webRouters);
+app.use('/', webRouters);
+
+//test connection
+connection.query('SELECT * FROM Users', function(err, results, fields){
+  console.log("Query result: ", results);
+  console.log("Fields: ", fields);
+});
 
 //listen to port
 app.listen(port, hostname, function(){

@@ -1,13 +1,12 @@
 const express = require('express');
+const {getHomePage, getUsersPage, postCreateUser} = require('../controllers/homeController');
 
 const router = express.Router();
 
-router.get('/', function(req, res){
-    res.render('xinchao.ejs');
-  });
+router.get('/', getHomePage);
   
-router.get('/bye', function(req,res){
-    res.send('see you again');
-});
+router.get('/users', getUsersPage);
+
+router.post('/createUser', postCreateUser);
 
 module.exports = router;
