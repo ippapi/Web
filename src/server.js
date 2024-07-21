@@ -25,12 +25,6 @@ configReqBody(app);
 //add routes:
 app.use('/', webRouters);
 
-//test connection
-connection.query('SELECT * FROM Users', function(err, results, fields){
-  console.log("Query result: ", results);
-  console.log("Fields: ", fields);
-});
-
 //listen to port
 app.listen(port, hostname, function(){
   console.log(`App hosting on port ${port}`);

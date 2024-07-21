@@ -1,12 +1,17 @@
 const express = require('express');
-const {getHomePage, getUsersPage, postCreateUser} = require('../controllers/homeController');
+const {getHomePage, getEditPage, postUserInfo} = require('../controllers/homeController');
+const {getCreateUser, postCreateUser} = require('../controllers/createController');
 
 const router = express.Router();
 
 router.get('/', getHomePage);
   
-router.get('/users', getUsersPage);
+router.get('/editUser/:id', getEditPage);
 
-router.post('/createUser', postCreateUser);
+router.get('/createUser', getCreateUser);
+
+router.post('/postUser', postCreateUser);
+
+router.post('/postInfo', postUserInfo);
 
 module.exports = router;
